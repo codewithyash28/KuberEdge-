@@ -9,7 +9,7 @@ import { Dashboard } from './components/Dashboard';
 import { BudgetCanvas } from './components/BudgetCanvas';
 import { DebtHealthCheck } from './components/DebtHealthCheck';
 import { ScamSimulator } from './components/ScamSimulator';
-import { AICoach } from './components/AICoach';
+import { Chatbot } from './components/Chatbot';
 import { SafetyCenter } from './components/SafetyCenter';
 import { UserProfile, BudgetItem, Mission } from './types';
 import { motion, AnimatePresence } from 'motion/react';
@@ -42,9 +42,9 @@ export default function App() {
       // Migration: Ensure missions exist
       if (!profile.missions || profile.missions.length === 0) {
         const initialMissions: Mission[] = [
-          { id: '1', title: 'First Budget', description: 'Add your first income and expense in the Budget Canvas.', xp: 50, completed: false, type: 'budget' },
-          { id: '2', title: 'Scam Spotter', description: 'Complete your first scam detection quiz.', xp: 30, completed: false, type: 'scam' },
-          { id: '3', title: 'Ask the Coach', description: 'Ask KuberEdge one financial question.', xp: 20, completed: false, type: 'coach' }
+          { id: '1', title: 'First Budget', description: 'Add your first income and expense in the Budget Canvas.', xp: 100, completed: false, type: 'budget' },
+          { id: '2', title: 'Scam Spotter', description: 'Complete your first scam detection quiz.', xp: 150, completed: false, type: 'scam' },
+          { id: '3', title: 'Chatbot Intro', description: 'Ask KuberEdge one financial question.', xp: 50, completed: false, type: 'coach' }
         ];
         profile.missions = initialMissions;
       }
@@ -76,7 +76,7 @@ export default function App() {
   const awardXP = (amount: number, missionId?: string) => {
     if (!profile) return;
     
-    let newXP = profile.xp + amount;
+    let newXP = Number(profile.xp) + amount;
     let newLevel = profile.level || 1;
     let newLevelTitle = profile.levelTitle || 'Beginner';
     
@@ -294,7 +294,7 @@ export default function App() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
             >
-              <AICoach profile={profile} budgetItems={budgetItems} onBack={() => setView('dashboard')} awardXP={awardXP} />
+              <Chatbot profile={profile} budgetItems={budgetItems} onBack={() => setView('dashboard')} awardXP={awardXP} />
             </motion.div>
           )}
         </AnimatePresence>

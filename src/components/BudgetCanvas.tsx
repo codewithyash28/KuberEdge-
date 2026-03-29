@@ -123,7 +123,7 @@ export function BudgetCanvas({ profile, initialItems, onUpdate, onBack, awardXP 
       // Award XP
       if (items.length === 1) {
         awardXP(100, '1');
-      } else if (itemToAdd.type === 'goal') {
+      } else if (itemToAdd.type === 'goal' && items.filter(i => i.type === 'goal').length === 0) {
         awardXP(80, '5');
       } else {
         awardXP(10);
@@ -538,7 +538,7 @@ export function BudgetCanvas({ profile, initialItems, onUpdate, onBack, awardXP 
             </div>
 
             <div className="mt-8 p-6 bg-blue-50 rounded-3xl border border-blue-100">
-              <h4 className="font-bold text-blue-900 mb-2">Coach Tip</h4>
+              <h4 className="font-bold text-blue-900 mb-2">Chatbot Tip</h4>
               <p className="text-sm text-blue-800 leading-relaxed">
                 {totals.remaining < 0 
                   ? "Your expenses are higher than your income. Try to reduce your variable expenses or set smaller goals for now!"

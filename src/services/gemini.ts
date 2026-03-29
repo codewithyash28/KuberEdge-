@@ -1,18 +1,25 @@
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || 'AIzaSy_dummy_key_for_build' });
+// Use a safe fallback for the API key to prevent immediate 400 errors if missing
+// The user should provide a valid key in their environment.
+const apiKey = process.env.GEMINI_API_KEY || "AIzaSy_dummy_key_for_build";
+const ai = new GoogleGenAI({ apiKey });
 
 export async function getCoachResponse(
   prompt: string,
   userProfile: { name: string; age: number; country: string; currency: string; topics: string[] },
   budgetItems?: { label: string; amount: number; type: string }[]
 ) {
-  const model = "gemini-2.0-flash";
+  if (!process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY === "AIzaSy_dummy_key_for_build") {
+    return "I'm sorry, the Chatbot is currently not configured with a valid API key. Please add a valid GEMINI_API_KEY to your environment.";
+  }
+
+  const model = "gemini-1.5-flash";
   const budgetContext = budgetItems && budgetItems.length > 0 
     ? `Current Budget Items: ${budgetItems.map(i => `${i.label} (${i.amount} ${userProfile.currency}, ${i.type})`).join(', ')}`
     : "No budget items added yet.";
 
-  const systemInstruction = `You are KuberEdge, an AI financial literacy coach for young people aged 11–25.
+  const systemInstruction = `You are KuberEdge, a financial literacy chatbot for young people aged 11–25.
 User Name: ${userProfile.name}
 User Age: ${userProfile.age}
 Country: ${userProfile.country}
@@ -40,14 +47,16 @@ Rules:
 - Use step-by-step explanations and small examples with numbers.
 - Encourage good habits like tracking expenses and building an emergency fund.
 - For scams: point out red flags (urgency, unknown sender, OTP requests).
-- IDENTITY: You are KuberEdge, an educational AI coach that helps young people around the world build safe and smart money habits.`;
+- IDENTITY: You are KuberEdge, an educational chatbot that helps young people around the world build safe and smart money habits.`;
 
   try {
     const response = await ai.models.generateContent({
       model,
       contents: [{ role: 'user', parts: [{ text: prompt }] }],
       config: {
-        systemInstruction,
+        systemInstruction: {
+          parts: [{ text: systemInstruction }]
+        },
       },
     });
     return response.text || "I'm sorry, I couldn't generate a response.";

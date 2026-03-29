@@ -1,7 +1,7 @@
 KuberEdge 💸
-Your AI Financial Literacy Coach for the Next Generation
+Your Financial Literacy Chatbot for the Next Generation
 
-KuberEdge is an AI-powered financial literacy coach that helps young people learn how to manage money, build healthy financial habits, and stay safe from online scams in a fun, conversational way.
+KuberEdge is a financial literacy chatbot that helps young people learn how to manage money, build healthy financial habits, and stay safe from online scams in a fun, conversational way.
 
 Why KuberEdge?
 Schools rarely teach practical money skills, yet teenagers and young adults are surrounded by UPI, credit cards, BNPL apps, and risky “get rich quick” schemes.
@@ -9,7 +9,7 @@ Schools rarely teach practical money skills, yet teenagers and young adults are 
 KuberEdge turns complex finance into simple, personalised guidance so that anyone can feel confident about their money decisions, not confused or intimidated.
 
 Core Features
-🤖 AI Money Coach
+🤖 Money Chatbot
 Chat with an AI assistant that explains savings, budgeting, debt, investing, and scams in clear, youth-friendly language.
 
 📊 Smart Budgeting Guidance
@@ -39,15 +39,15 @@ Refer to it before big decisions like taking loans, buying gadgets on EMI, or in
 Learn gradually through repeated conversations instead of cramming boring financial theory.
 
 Tech Overview
-Frontend: (e.g. React / Next.js – update to your actual stack)
+Frontend: React 19, Vite 6, Tailwind CSS 4
 
-Backend & API: (e.g. Node.js / Express / Python FastAPI – update)
+Backend & API: Node.js (Vite Dev Server), Gemini 1.5 Flash API
 
-AI Layer: LLM-based assistant for natural language understanding and financial explanations.
+AI Layer: Google Generative AI (@google/genai)
 
-Database: (e.g. MongoDB / PostgreSQL / Firebase – update)
+Database: LocalStorage (Client-side)
 
-Deployment: (e.g. Vercel / Netlify / Render / Railway – update)
+Deployment: Vercel / Netlify
 
 Roadmap
 User accounts with progress tracking and personalised learning journeys.
