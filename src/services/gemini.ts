@@ -1,13 +1,13 @@
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || 'AIzaSy_dummy_key_for_build' });
 
 export async function getCoachResponse(
   prompt: string,
   userProfile: { name: string; age: number; country: string; currency: string; topics: string[] },
   budgetItems?: { label: string; amount: number; type: string }[]
 ) {
-  const model = "gemini-3-flash-preview";
+  const model = "gemini-2.0-flash";
   const budgetContext = budgetItems && budgetItems.length > 0 
     ? `Current Budget Items: ${budgetItems.map(i => `${i.label} (${i.amount} ${userProfile.currency}, ${i.type})`).join(', ')}`
     : "No budget items added yet.";
@@ -45,12 +45,12 @@ Rules:
   try {
     const response = await ai.models.generateContent({
       model,
-      contents: prompt,
+      contents: [{ role: 'user', parts: [{ text: prompt }] }],
       config: {
         systemInstruction,
       },
     });
-    return response.text;
+    return response.text || "I'm sorry, I couldn't generate a response.";
   } catch (error) {
     console.error("Gemini Error:", error);
     return "I'm sorry, I'm having a bit of trouble connecting right now. Let's try again in a moment!";

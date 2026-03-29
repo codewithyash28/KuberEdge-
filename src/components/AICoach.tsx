@@ -55,7 +55,7 @@ export function AICoach({ profile, budgetItems, onBack, awardXP }: AICoachProps)
 
     // Award XP for first question
     if (messages.length === 1) {
-      awardXP(50, 'first-question');
+      awardXP(50, '3');
     } else {
       awardXP(5);
     }

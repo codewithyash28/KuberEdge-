@@ -116,13 +116,15 @@ export function BudgetCanvas({ profile, initialItems, onUpdate, onBack, awardXP 
   const addItem = (item?: Partial<BudgetItem>) => {
     const itemToAdd = item || newItem;
     if (itemToAdd.label && itemToAdd.amount && itemToAdd.amount > 0) {
-      const updatedItems = [...items, { ...itemToAdd, id: Date.now().toString() + Math.random().toString(36).substr(2, 5) } as BudgetItem];
+      const updatedItems = [...items, { ...itemToAdd, id: Date.now().toString() + Math.random().toString(36).substring(2, 7) } as BudgetItem];
       setItems(updatedItems);
       onUpdate(updatedItems);
       
       // Award XP
       if (items.length === 1) {
-        awardXP(100, 'first-budget');
+        awardXP(100, '1');
+      } else if (itemToAdd.type === 'goal') {
+        awardXP(80, '5');
       } else {
         awardXP(10);
       }
@@ -134,7 +136,7 @@ export function BudgetCanvas({ profile, initialItems, onUpdate, onBack, awardXP 
   const applyTemplate = (templateItems: BudgetItem[]) => {
     const newItems = templateItems.map(item => ({
       ...item,
-      id: Date.now().toString() + Math.random().toString(36).substr(2, 5)
+      id: Date.now().toString() + Math.random().toString(36).substring(2, 7)
     }));
     setItems(newItems);
     onUpdate(newItems);

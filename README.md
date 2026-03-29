@@ -47,7 +47,7 @@ AI Layer: LLM-based assistant for natural language understanding and financial e
 
 Database: (e.g. MongoDB / PostgreSQL / Firebase – update)
 
-Deployment: (e.g. Vercel / Netlify / Render / Railway – update
+Deployment: (e.g. Vercel / Netlify / Render / Railway – update)
 
 Roadmap
 User accounts with progress tracking and personalised learning journeys.
