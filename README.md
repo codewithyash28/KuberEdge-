@@ -9,7 +9,7 @@ Schools rarely teach practical money skills, yet teenagers and young adults are 
 KuberEdge turns complex finance into simple, personalised guidance so that anyone can feel confident about their money decisions, not confused or intimidated.
 
 Core Features
-🤖 AI Money Coach
+🤖 Money Chatbot
 Chat with an AI assistant that explains savings, budgeting, debt, investing, and scams in clear, youth-friendly language.
 
 📊 Smart Budgeting Guidance

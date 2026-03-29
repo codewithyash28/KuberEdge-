@@ -401,7 +401,7 @@ export function ScamSimulator({ profile, onBack, awardXP }: ScamSimulatorProps) 
       </div>
 
       <div className="mt-12 p-8 bg-orange-50 rounded-[2.5rem] border border-orange-100">
-        <h3 className="text-xl font-bold text-orange-900 mb-4">Coach's Safety Rules</h3>
+        <h3 className="text-xl font-bold text-orange-900 mb-4">Chatbot's Safety Rules</h3>
         <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {[
             "Never share your OTP or PIN with anyone.",

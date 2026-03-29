@@ -8,7 +8,7 @@ export async function getCoachResponse(
   budgetItems?: { label: string; amount: number; type: string }[]
 ) {
   if (!process.env.GEMINI_API_KEY) {
-    return "I'm sorry, the AI Coach is currently not configured with an API key. Please add GEMINI_API_KEY to your environment.";
+    return "I'm sorry, the Chatbot is currently not configured with an API key. Please add GEMINI_API_KEY to your environment.";
   }
 
   const model = "gemini-1.5-flash";
@@ -16,7 +16,7 @@ export async function getCoachResponse(
     ? `Current Budget Items: ${budgetItems.map(i => `${i.label} (${i.amount} ${userProfile.currency}, ${i.type})`).join(', ')}`
     : "No budget items added yet.";
 
-  const systemInstruction = `You are KuberEdge, an AI financial literacy coach for young people aged 11–25.
+  const systemInstruction = `You are KuberEdge, a financial literacy chatbot for young people aged 11–25.
 User Name: ${userProfile.name}
 User Age: ${userProfile.age}
 Country: ${userProfile.country}
@@ -44,7 +44,7 @@ Rules:
 - Use step-by-step explanations and small examples with numbers.
 - Encourage good habits like tracking expenses and building an emergency fund.
 - For scams: point out red flags (urgency, unknown sender, OTP requests).
-- IDENTITY: You are KuberEdge, an educational AI coach that helps young people around the world build safe and smart money habits.`;
+- IDENTITY: You are KuberEdge, an educational chatbot that helps young people around the world build safe and smart money habits.`;
 
   try {
     const response = await ai.models.generateContent({
