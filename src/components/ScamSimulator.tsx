@@ -111,14 +111,18 @@ export function ScamSimulator({ profile, onBack, awardXP }: ScamSimulatorProps) 
   const resetSimulator = () => {
     setShowFinalResult(false);
     setCurrentIndex(0);
-    setScore(0);
     setShowResult(false);
     setUserChoice(null);
     if (mode === 'quiz') {
-      awardXP(150, 'scam-warrior');
+      awardXP(150, '2');
     } else {
-      awardXP(100);
+      if (score >= 3) {
+        awardXP(120, '6');
+      } else {
+        awardXP(100);
+      }
     }
+    setScore(0);
   };
 
   return (

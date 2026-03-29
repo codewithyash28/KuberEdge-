@@ -114,7 +114,7 @@ export default function App() {
         });
 
         // Check if all missions are completed to unlock next tier
-        if (newMissions.every(m => m.completed)) {
+        if (newMissions.every(m => m.completed) && !newMissions.some(m => m.id === '4')) {
           const nextTierMissions: Mission[] = [
             { id: '4', title: 'Debt Buster', description: 'Calculate your first EMI in the Debt Health Check.', xp: 100, completed: false, type: 'debt' },
             { id: '5', title: 'Savings Goal', description: 'Add a savings goal item to your budget.', xp: 80, completed: false, type: 'budget' },
@@ -304,7 +304,7 @@ export default function App() {
 
       <footer className="max-w-7xl mx-auto px-6 py-12 border-t border-gray-100 text-center">
         <p className="text-gray-400 text-sm font-medium">
-          &copy; 2026 KuberEdge. Empowering the next generation of financial leaders.
+          &copy; 2025 KuberEdge. Empowering the next generation of financial leaders.
         </p>
         <p className="text-gray-300 text-[10px] uppercase font-bold tracking-[0.2em] mt-2">
           General Education &bull; Not Financial Advice &bull; Safe & Smart
