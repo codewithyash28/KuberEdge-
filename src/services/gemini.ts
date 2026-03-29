@@ -1,13 +1,17 @@
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || 'AIzaSy_dummy_key_for_build' });
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || "" });
 
 export async function getCoachResponse(
   prompt: string,
   userProfile: { name: string; age: number; country: string; currency: string; topics: string[] },
   budgetItems?: { label: string; amount: number; type: string }[]
 ) {
-  const model = "gemini-2.0-flash";
+  if (!process.env.GEMINI_API_KEY) {
+    return "I'm sorry, the AI Coach is currently not configured with an API key. Please add GEMINI_API_KEY to your environment.";
+  }
+
+  const model = "gemini-1.5-flash";
   const budgetContext = budgetItems && budgetItems.length > 0 
     ? `Current Budget Items: ${budgetItems.map(i => `${i.label} (${i.amount} ${userProfile.currency}, ${i.type})`).join(', ')}`
     : "No budget items added yet.";
