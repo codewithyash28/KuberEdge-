@@ -22,7 +22,12 @@ const variableSubCategories = [
   'Entertainment',
   'Health',
   'Shopping',
-  'Other'
+  'Education',
+  'Travel',
+  'Gifts',
+  'Subscriptions',
+  'Other',
+  'Custom...'
 ];
 
 const quickAddItems = [
@@ -75,6 +80,7 @@ export function BudgetCanvas({ profile, initialItems, onUpdate, onBack, awardXP 
     { id: '1', type: 'income', label: 'Pocket Money / Salary', amount: 0 },
   ]);
   const [newItem, setNewItem] = useState<Partial<BudgetItem>>({ type: 'variable', label: '', amount: 0, subCategory: 'Groceries' });
+  const [customSubCategory, setCustomSubCategory] = useState('');
   const [showCoachIntro, setShowCoachIntro] = useState(initialItems.length === 0);
   const [activeExplainer, setActiveExplainer] = useState<string | null>(null);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
@@ -83,7 +89,7 @@ export function BudgetCanvas({ profile, initialItems, onUpdate, onBack, awardXP 
     return saved ? JSON.parse(saved) : null;
   });
 
-  const totals = useMemo(() => {
+  const { totals, variableBreakdown } = useMemo(() => {
     const income = items.filter((i) => i.type === 'income').reduce((acc, i) => acc + i.amount, 0);
     const fixed = items.filter((i) => i.type === 'fixed').reduce((acc, i) => acc + i.amount, 0);
     const variable = items.filter((i) => i.type === 'variable').reduce((acc, i) => acc + i.amount, 0);
@@ -96,7 +102,17 @@ export function BudgetCanvas({ profile, initialItems, onUpdate, onBack, awardXP 
     const savingsPercent = income > 0 ? Math.round((goals / income) * 100) : 0;
     const remainingPercent = income > 0 ? Math.round((remaining / income) * 100) : 0;
 
-    return { income, fixed, variable, goals, totalExpenses, remaining, needsPercent, wantsPercent, savingsPercent, remainingPercent };
+    const breakdown: Record<string, number> = {};
+    items.filter(i => i.type === 'variable').forEach(item => {
+      const cat = item.subCategory || 'Other';
+      breakdown[cat] = (breakdown[cat] || 0) + item.amount;
+    });
+    const variableBreakdown = Object.entries(breakdown).sort((a, b) => b[1] - a[1]);
+
+    return { 
+      totals: { income, fixed, variable, goals, totalExpenses, remaining, needsPercent, wantsPercent, savingsPercent, remainingPercent },
+      variableBreakdown
+    };
   }, [items]);
 
   const saveSnapshot = () => {
@@ -116,27 +132,38 @@ export function BudgetCanvas({ profile, initialItems, onUpdate, onBack, awardXP 
   const addItem = (item?: Partial<BudgetItem>) => {
     const itemToAdd = item || newItem;
     if (itemToAdd.label && itemToAdd.amount && itemToAdd.amount > 0) {
-      const updatedItems = [...items, { ...itemToAdd, id: Date.now().toString() + Math.random().toString(36).substring(2, 7) } as BudgetItem];
+      let finalSubCategory = itemToAdd.subCategory;
+      if (itemToAdd.type === 'variable' && itemToAdd.subCategory === 'Custom...') {
+        finalSubCategory = customSubCategory || 'Other';
+      }
+
+      const updatedItems = [...items, { 
+        ...itemToAdd, 
+        subCategory: finalSubCategory,
+        id: Date.now().toString() + Math.random().toString(36).substr(2, 5) 
+      } as BudgetItem];
+      
       setItems(updatedItems);
       onUpdate(updatedItems);
       
       // Award XP
       if (items.length === 1) {
-        awardXP(100, '1');
-      } else if (itemToAdd.type === 'goal' && items.filter(i => i.type === 'goal').length === 0) {
-        awardXP(80, '5');
+        awardXP(100, 'first-budget');
       } else {
         awardXP(10);
       }
 
-      if (!item) setNewItem({ type: 'variable', label: '', amount: 0, subCategory: 'Groceries' });
+      if (!item) {
+        setNewItem({ type: 'variable', label: '', amount: 0, subCategory: 'Groceries' });
+        setCustomSubCategory('');
+      }
     }
   };
 
   const applyTemplate = (templateItems: BudgetItem[]) => {
     const newItems = templateItems.map(item => ({
       ...item,
-      id: Date.now().toString() + Math.random().toString(36).substring(2, 7)
+      id: Date.now().toString() + Math.random().toString(36).substr(2, 5)
     }));
     setItems(newItems);
     onUpdate(newItems);
@@ -288,15 +315,28 @@ export function BudgetCanvas({ profile, initialItems, onUpdate, onBack, awardXP 
                 <option value="goal">Goal</option>
               </select>
               {newItem.type === 'variable' && (
-                <select
-                  value={newItem.subCategory}
-                  onChange={(e) => setNewItem({ ...newItem, subCategory: e.target.value })}
-                  className="p-4 rounded-2xl border-2 border-gray-100 focus:border-orange-500 outline-none transition-all"
-                >
-                  {variableSubCategories.map(cat => (
-                    <option key={cat} value={cat}>{cat}</option>
-                  ))}
-                </select>
+                <div className="flex flex-col gap-2">
+                  <select
+                    value={newItem.subCategory}
+                    onChange={(e) => setNewItem({ ...newItem, subCategory: e.target.value })}
+                    className="p-4 rounded-2xl border-2 border-gray-100 focus:border-orange-500 outline-none transition-all"
+                  >
+                    {variableSubCategories.map(cat => (
+                      <option key={cat} value={cat}>{cat}</option>
+                    ))}
+                  </select>
+                  {newItem.subCategory === 'Custom...' && (
+                    <motion.input
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      type="text"
+                      placeholder="Enter custom category name"
+                      value={customSubCategory}
+                      onChange={(e) => setCustomSubCategory(e.target.value)}
+                      className="p-4 rounded-2xl border-2 border-orange-200 focus:border-orange-500 outline-none transition-all bg-orange-50"
+                    />
+                  )}
+                </div>
               )}
               <input
                 type="text"
@@ -434,6 +474,17 @@ export function BudgetCanvas({ profile, initialItems, onUpdate, onBack, awardXP 
                   </div>
                 )}
               </div>
+
+              {variableBreakdown.length > 0 && (
+                <div className="pl-4 border-l-2 border-orange-100 space-y-2 mt-2">
+                  {variableBreakdown.map(([cat, amount]) => (
+                    <div key={cat} className="flex justify-between items-center text-[10px] font-bold">
+                      <span className="text-gray-400">{cat}</span>
+                      <span className="text-orange-400">{formatCurrency(amount, profile.currency)}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
               <div className="flex justify-between items-center group relative">
                 <span className="text-gray-500 flex items-center gap-1">
                   Savings Goals
@@ -538,7 +589,7 @@ export function BudgetCanvas({ profile, initialItems, onUpdate, onBack, awardXP 
             </div>
 
             <div className="mt-8 p-6 bg-blue-50 rounded-3xl border border-blue-100">
-              <h4 className="font-bold text-blue-900 mb-2">Chatbot Tip</h4>
+              <h4 className="font-bold text-blue-900 mb-2">Coach Tip</h4>
               <p className="text-sm text-blue-800 leading-relaxed">
                 {totals.remaining < 0 
                   ? "Your expenses are higher than your income. Try to reduce your variable expenses or set smaller goals for now!"

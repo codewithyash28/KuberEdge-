@@ -49,7 +49,7 @@ const features = [
   },
   {
     id: 'coach',
-    title: 'Chatbot',
+    title: 'AI Coach',
     description: 'Ask KuberEdge any money questions.',
     icon: MessageCircle,
     color: 'bg-orange-500',
@@ -68,7 +68,7 @@ export function Dashboard({ profile, onNavigate, onShare }: DashboardProps) {
   const checklist = [
     { id: 'budget', label: 'Create your first budget', completed: firstMissions.find(m => m.id === '1')?.completed },
     { id: 'scam', label: 'Take the Scam Quiz', completed: firstMissions.find(m => m.id === '2')?.completed },
-    { id: 'coach', label: 'Try the Chatbot', completed: firstMissions.find(m => m.id === '3')?.completed },
+    { id: 'coach', label: 'Ask the Coach one question', completed: firstMissions.find(m => m.id === '3')?.completed },
   ];
 
   const todayMission = {
@@ -164,7 +164,7 @@ export function Dashboard({ profile, onNavigate, onShare }: DashboardProps) {
             <div className={cn("flex items-center gap-2 font-black text-[10px] uppercase tracking-widest", feature.textColor)}>
               {feature.id === 'budget' ? 'Plan Budget' : 
                feature.id === 'scam' ? 'Spot Scams' : 
-               feature.id === 'coach' ? 'Chat Now' : 'Explore'} <ArrowRight className="w-3 h-3" />
+               feature.id === 'coach' ? 'Ask Coach' : 'Explore'} <ArrowRight className="w-3 h-3" />
             </div>
             <div className={cn("absolute top-0 right-0 w-20 h-20 -mr-8 -mt-8 rounded-full opacity-10 blur-2xl", feature.color)} />
           </motion.button>

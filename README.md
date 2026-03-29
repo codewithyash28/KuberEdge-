@@ -1,74 +1,20 @@
-KuberEdge 💸
-Your Financial Literacy Chatbot for the Next Generation
+<div align="center">
+<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+</div>
 
-KuberEdge is a financial literacy chatbot that helps young people learn how to manage money, build healthy financial habits, and stay safe from online scams in a fun, conversational way.
+# Run and deploy your AI Studio app
 
-Why KuberEdge?
-Schools rarely teach practical money skills, yet teenagers and young adults are surrounded by UPI, credit cards, BNPL apps, and risky “get rich quick” schemes.
+This contains everything you need to run your app locally.
 
-KuberEdge turns complex finance into simple, personalised guidance so that anyone can feel confident about their money decisions, not confused or intimidated.
+View your app in AI Studio: https://ai.studio/apps/f60bbbd5-46dc-416c-9b1a-d951ba5b5495
 
-Core Features
-🤖 Money Chatbot
-Chat with an AI assistant that explains savings, budgeting, debt, investing, and scams in clear, youth-friendly language.
+## Run Locally
 
-📊 Smart Budgeting Guidance
-Learn how to structure monthly budgets, separate needs from wants, and align spending with your goals instead of impulses.
+**Prerequisites:**  Node.js
 
-🧠 Bite-Sized Financial Lessons
-Short, focused learning modules on topics like emergency funds, SIPs, compounding, digital payments, and more.
 
-🛡️ Scam & Fraud Protection
-Guidance to recognise phishing, fake loan apps, investment traps, and social engineering tricks before you fall for them.
-
-🎯 Personalised Insights
-Suggestions that adapt to your income level, risk appetite, and behaviour rather than giving one-size-fits-all advice.
-
-Ideal For
-Students who are just starting to handle pocket money, stipends, or part-time income.
-
-Young professionals dealing with salary, rent, EMIs, and savings for the first time.
-
-Anyone who wants a safe, judgement-free place to ask “basic” money questions.
-
-How It Fits Into Your Life
-Use it as a daily money check-in: “Can I afford this?”, “Is this app safe?”, “How should I plan this month?”.
-
-Refer to it before big decisions like taking loans, buying gadgets on EMI, or investing in “too good to be true” schemes.
-
-Learn gradually through repeated conversations instead of cramming boring financial theory.
-
-Tech Overview
-Frontend: React 19, Vite 6, Tailwind CSS 4
-
-Backend & API: Node.js (Vite Dev Server), Gemini 1.5 Flash API
-
-AI Layer: Google Generative AI (@google/genai)
-
-Database: LocalStorage (Client-side)
-
-Deployment: Vercel / Netlify
-
-Roadmap
-User accounts with progress tracking and personalised learning journeys.
-
-Gamified experience with streaks, levels, and badges for consistent learning.
-
-Regional language support focused on Indian users.
-
-Deeper financial analytics and insights based on real spending patterns.
-
-Contributing
-KuberEdge is built for learners, by learners. If you have ideas for new lessons, flows, or features, feel free to:
-
-Open an issue
-
-Create a pull request
-
-Share feedback and suggestions
-
-Clean, well-documented contributions are always welcome.
-
-<p align="center">
-<b>Made by Code with Yash</b> ✨
-</p>
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`

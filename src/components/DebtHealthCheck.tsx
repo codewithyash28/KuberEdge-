@@ -20,7 +20,7 @@ export function DebtHealthCheck({ profile, onBack, awardXP }: DebtHealthCheckPro
       setNewDebt({ label: '', amount: 0, interestRate: 0, duration: 12 });
       
       if (debts.length === 0) {
-        awardXP(100, '4');
+        awardXP(100, 'debt-check');
       } else {
         awardXP(20);
       }

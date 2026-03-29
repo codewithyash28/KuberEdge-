@@ -26,8 +26,8 @@ export const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
     },
     {
       icon: <MessageCircle className="w-5 h-5 text-green-500" />,
-      q: "What is the Chatbot?",
-      a: "The Chatbot is your personal finance assistant. It's trained to help young people understand money concepts in simple, friendly language. Ask it anything about saving, debt, or scams!"
+      q: "Who is the AI Coach?",
+      a: "The AI Coach is powered by Gemini. It's trained to help young people understand money concepts in simple, friendly language. Ask it anything about saving, debt, or scams!"
     },
     {
       icon: <Sparkles className="w-5 h-5 text-purple-500" />,
@@ -39,7 +39,7 @@ export const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[110] flex items-center justify-center p-6">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -80,7 +80,7 @@ export const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
                     <span className="text-orange-300">→</span>
                     <span>2. Quiz</span>
                     <span className="text-orange-300">→</span>
-                    <span>3. Chatbot</span>
+                    <span>3. Coach</span>
                     <span className="text-orange-300">→</span>
                     <span>4. Level Up!</span>
                   </div>

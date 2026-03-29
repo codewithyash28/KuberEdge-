@@ -6,7 +6,7 @@ import { getCoachResponse } from '../services/gemini';
 import ReactMarkdown from 'react-markdown';
 import { cn } from '../lib/utils';
 
-interface ChatbotProps {
+interface AICoachProps {
   profile: UserProfile;
   budgetItems: BudgetItem[];
   onBack: () => void;
@@ -20,12 +20,12 @@ interface Message {
   timestamp: Date;
 }
 
-export function Chatbot({ profile, budgetItems, onBack, awardXP }: ChatbotProps) {
+export function AICoach({ profile, budgetItems, onBack, awardXP }: AICoachProps) {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
       role: 'coach',
-      text: `Hi ${profile.name}! I'm KuberEdge, your financial literacy chatbot. How can I help you today? You can ask me about budgeting, saving, debt, or how to spot scams!`,
+      text: `Hi ${profile.name}! I'm KuberEdge, your AI financial literacy coach. How can I help you today? You can ask me about budgeting, saving, debt, or how to spot scams!`,
       timestamp: new Date(),
     },
   ]);
@@ -55,7 +55,7 @@ export function Chatbot({ profile, budgetItems, onBack, awardXP }: ChatbotProps)
 
     // Award XP for first question
     if (messages.length === 1) {
-      awardXP(50, '3');
+      awardXP(50, 'first-question');
     } else {
       awardXP(5);
     }
@@ -101,7 +101,7 @@ export function Chatbot({ profile, budgetItems, onBack, awardXP }: ChatbotProps)
         </button>
         <div className="flex items-center gap-2 bg-orange-50 px-4 py-2 rounded-2xl border border-orange-100">
           <Sparkles className="w-4 h-4 text-orange-500" />
-          <span className="text-xs font-bold text-orange-700 uppercase tracking-widest">KuberEdge Chatbot</span>
+          <span className="text-xs font-bold text-orange-700 uppercase tracking-widest">KuberEdge AI Coach</span>
         </div>
       </div>
 
@@ -180,7 +180,7 @@ export function Chatbot({ profile, budgetItems, onBack, awardXP }: ChatbotProps)
                 </div>
                 <div className="bg-gray-50 p-5 rounded-[2rem] rounded-tl-none border border-gray-100 flex items-center gap-2">
                   <Loader2 className="w-4 h-4 text-orange-500 animate-spin" />
-                  <span className="text-sm text-gray-400 font-medium">KuberEdge Chatbot is thinking...</span>
+                  <span className="text-sm text-gray-400 font-medium">KuberEdge is thinking...</span>
                 </div>
               </motion.div>
             )}
