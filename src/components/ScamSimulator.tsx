@@ -388,7 +388,7 @@ export function ScamSimulator({ profile, onBack, awardXP }: ScamSimulatorProps) 
                         className="w-full p-4 bg-gray-900 text-white rounded-2xl font-bold hover:bg-black transition-all"
                       >
                         {currentIndex === (mode === 'scenarios' ? scenarios.length - 1 : quizQuestions.length - 1) 
-                          ? mode === 'scenarios' ? 'Start Quiz' : 'Finish Quiz' 
+                          ? (mode === 'scenarios' ? 'Check Results' : 'Finish Quiz')
                           : 'Next Item'}
                       </button>
                     </div>

@@ -36,9 +36,9 @@ export function Onboarding({ onComplete }: OnboardingProps) {
     levelTitle: 'Beginner',
     streak: 1,
     missions: [
-      { id: '1', title: 'First Budget', description: 'Add your first income and expense in the Budget Canvas.', xp: 50, completed: false, type: 'budget' },
-      { id: '2', title: 'Scam Spotter', description: 'Complete your first scam detection quiz.', xp: 30, completed: false, type: 'scam' },
-      { id: '3', title: 'Chatbot Intro', description: 'Ask KuberEdge one financial question.', xp: 20, completed: false, type: 'coach' }
+      { id: '1', title: 'First Budget', description: 'Add your first income and expense in the Budget Canvas.', xp: 100, completed: false, type: 'budget' },
+      { id: '2', title: 'Scam Spotter', description: 'Complete your first scam detection quiz.', xp: 150, completed: false, type: 'scam' },
+      { id: '3', title: 'Chatbot Intro', description: 'Ask KuberEdge one financial question.', xp: 50, completed: false, type: 'coach' }
     ] as Mission[]
   });
 

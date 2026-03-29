@@ -123,7 +123,7 @@ export function BudgetCanvas({ profile, initialItems, onUpdate, onBack, awardXP 
       // Award XP
       if (items.length === 1) {
         awardXP(100, '1');
-      } else if (itemToAdd.type === 'goal') {
+      } else if (itemToAdd.type === 'goal' && items.filter(i => i.type === 'goal').length === 0) {
         awardXP(80, '5');
       } else {
         awardXP(10);

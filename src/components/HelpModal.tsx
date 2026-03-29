@@ -27,7 +27,7 @@ export const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
     {
       icon: <MessageCircle className="w-5 h-5 text-green-500" />,
       q: "What is the Chatbot?",
-      a: "The Chatbot is powered by AI. It's trained to help young people understand money concepts in simple, friendly language. Ask it anything about saving, debt, or scams!"
+      a: "The Chatbot is your personal finance assistant. It's trained to help young people understand money concepts in simple, friendly language. Ask it anything about saving, debt, or scams!"
     },
     {
       icon: <Sparkles className="w-5 h-5 text-purple-500" />,

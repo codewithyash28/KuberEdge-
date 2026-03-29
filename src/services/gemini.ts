@@ -1,14 +1,17 @@
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || "" });
+// Use a safe fallback for the API key to prevent immediate 400 errors if missing
+// The user should provide a valid key in their environment.
+const apiKey = process.env.GEMINI_API_KEY || "AIzaSy_dummy_key_for_build";
+const ai = new GoogleGenAI({ apiKey });
 
 export async function getCoachResponse(
   prompt: string,
   userProfile: { name: string; age: number; country: string; currency: string; topics: string[] },
   budgetItems?: { label: string; amount: number; type: string }[]
 ) {
-  if (!process.env.GEMINI_API_KEY) {
-    return "I'm sorry, the Chatbot is currently not configured with an API key. Please add GEMINI_API_KEY to your environment.";
+  if (!process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY === "AIzaSy_dummy_key_for_build") {
+    return "I'm sorry, the Chatbot is currently not configured with a valid API key. Please add a valid GEMINI_API_KEY to your environment.";
   }
 
   const model = "gemini-1.5-flash";
@@ -51,7 +54,9 @@ Rules:
       model,
       contents: [{ role: 'user', parts: [{ text: prompt }] }],
       config: {
-        systemInstruction,
+        systemInstruction: {
+          parts: [{ text: systemInstruction }]
+        },
       },
     });
     return response.text || "I'm sorry, I couldn't generate a response.";
